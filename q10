@@ -1,0 +1,63 @@
+#include <stdlib.h>
+#include <stdio.h>
+struct node {
+    int avg,rollno;
+    char name[30],result;
+    struct node *next;
+}*head,*temp,*q;
+void display(struct node *head){
+    q=head;
+    while (q!=NULL){
+        printf("\nRollno. : %d\nName : %s\nAverage : %d\nResult : %c\n",q->rollno,q->name,q->avg,q->result);
+        q=q->next;
+    }
+}
+int main(){
+    int i,j,n,avg,rollno,mark;
+    printf("Enter size of linked list : ");
+    scanf("%d",&n);
+    for (i=1; i<=n; i++){
+        temp=(struct node *)malloc(sizeof(struct node));
+        rollno=i;
+        printf("Enter name : ");
+        scanf("%s",temp->name);
+        printf("Enter marks : \n");
+        avg=0;
+        for (j=1; j<=3; j++){
+            printf("Subject %d : ",j);
+            scanf("%d",&mark);
+            avg+=mark;
+        }
+        avg/=3;
+        if (avg<40){
+            temp->result='E';
+        }
+        else if (avg>=40 && avg<50){
+            temp->result='D';
+        }
+        else if (avg>=50 && avg<60){
+            temp->result='C';
+        }
+        else if (avg>=60 && avg<80){
+            temp->result='B';
+        }
+        else if (avg>=80 && avg<=100){
+            temp->result='A';
+        }
+        temp->rollno=rollno;
+        temp->avg=avg;
+        temp->next=NULL;
+        if (head==NULL){
+            head=temp;
+        }
+        else{
+            q=head;
+            while(q->next!=NULL){
+                q=q->next;
+            }
+            q->next=temp;
+        }
+    }
+    display(head);
+    return 0;
+}
